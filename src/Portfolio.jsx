@@ -81,7 +81,6 @@ const ConstellationCanvas = () => {
     resize();
     window.addEventListener('resize', resize);
 
-    // seed dots
     dotsRef.current = Array.from({ length: 55 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -103,7 +102,6 @@ const ConstellationCanvas = () => {
         if (d.y < 0 || d.y > H) d.vy *= -1;
       });
 
-      // lines between nearby dots
       for (let i = 0; i < dots.length; i++) {
         for (let j = i + 1; j < dots.length; j++) {
           const dx = dots[i].x - dots[j].x;
@@ -118,7 +116,6 @@ const ConstellationCanvas = () => {
             ctx.stroke();
           }
         }
-        // react to mouse
         const mdx = dots[i].x - mouse.current.x;
         const mdy = dots[i].y - mouse.current.y;
         const md  = Math.sqrt(mdx*mdx + mdy*mdy);
@@ -131,7 +128,6 @@ const ConstellationCanvas = () => {
           ctx.stroke();
         }
 
-        // dot itself
         ctx.beginPath();
         ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI*2);
         ctx.fillStyle = `rgba(107,143,113,0.45)`;
@@ -183,7 +179,6 @@ const MusicPlayer = () => {
   const [pulse,   setPulse]   = useState(false);
   const audioRef  = useRef(null);
 
-  // Royalty-free ambient track
   const SRC = 'https://cdn.pixabay.com/audio/2022/01/18/audio_d0ef108ef7.mp3';
 
   useEffect(() => {
@@ -365,7 +360,6 @@ const Portfolio = () => {
   const heroRef = useRef(null);
   const [heroParallax, setHeroParallax] = useState(0);
 
-  // Active section tracker
   useEffect(() => {
     const ids = ['home','about','education','experience','projects','books','contact'];
     const h = () => {
@@ -380,14 +374,12 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', h);
   }, []);
 
-  // Hero parallax
   useEffect(() => {
     const h = () => setHeroParallax(window.scrollY * 0.35);
     window.addEventListener('scroll', h);
     return () => window.removeEventListener('scroll', h);
   }, []);
 
-  // Dot counter on scroll
   useEffect(() => {
     const h = () => {
       const max = document.body.scrollHeight - window.innerHeight;
@@ -415,20 +407,19 @@ const Portfolio = () => {
     'Data Mining & Predictive Analytics','Data Visualization','Statistical Analysis in R',
   ];
 
-  // ── PROJECTS: only FinPulse Fraud (per edit guide) ────────────────
   const projects = [
     {
       title: 'FinPulse Fraud Detection Pipeline',
       subtitle: 'Python · Apache Spark · HDFS · Docker',
       tech:['Python','Apache Spark','HDFS','Docker'],
-      scattered: '5 fraud datasets lived in silos, and the existing rule engine flagged 98.5% false positives — analysts drowned in noise instead of catching real fraud.',
+      github: 'https://github.com/alazzawiusf/Data-Wranglers-Final-Project',
+      scattered: '5 fraud datasets lived in silos, and the existing rule engine flagged 98.5% false positives. Analysts drowned in noise instead of catching real fraud.',
       connecting: 'Built a 4-job Spark batch transformation pipeline joining all 5 datasets into a 1.15M-row enriched fact table with 26 engineered features and 99,997 customer behavioral profiles.',
       clear: 'Surfaced fraud patterns across merchants, channels, and geography, and quantified $9.4M/year in recoverable analyst costs through z-score behavioral modeling.',
-      proudDetail: 'Designed the pipeline as 4 independent Spark jobs — each testable, each replayable. When something breaks, you know exactly which job to rerun.',
+      proudDetail: 'Designed the pipeline as 4 independent Spark jobs. Each testable, each replayable. When something breaks, you know exactly which job to rerun.',
     },
   ];
 
-  // ── BOOKS: added SuperCommunicators + Invisible Child, updated insights & ratings ──
   const books = [
     {
       title:'Die with Zero', author:'Bill Perkins', color:C.sage, rating:4,
@@ -448,19 +439,18 @@ const Portfolio = () => {
     },
     {
       title:'7 Habits of Highly Effective People', author:'Stephen Covey', color:C.matcha, rating:5,
-      insight:'Shaped how I work and collaborate — and honestly, just how to be a better person.'
+      insight:'Shaped how I work and collaborate, and honestly, just how to be a better person.'
     },
     {
       title:'Supercommunicators', author:'Charles Duhigg', color:C.gold, rating:4,
-      insight:'The best conversations aren\'t about being clever — they\'re about matching the kind of conversation the other person is trying to have.'
+      insight:'The best conversations aren\'t about being clever. They\'re about matching the kind of conversation the other person is trying to have.'
     },
     {
       title:'Invisible Child', author:'Andrea Elliott', color:C.blush, rating:0, currentlyReading:true,
-      insight:'Currently reading. A reminder that data on poverty and homelessness is always a person — and every system I build touches lives like these.'
+      insight:'Currently reading. A reminder that data on poverty and homelessness is always a person, and every system I build touches lives like these.'
     },
   ];
 
-  // ── EXPERIENCES: added Micron at the top; rewrote all bullets per edit guide ──
   const experiences = [
     {
       role: 'Technical Program Manager Intern',
@@ -469,7 +459,7 @@ const Portfolio = () => {
       color: C.gold,
       bullets: [
         'Owned end-to-end delivery of a centralized AI agent (Microsoft Copilot Studio), standardizing product development meeting minutes for 20–30 PMOs across all 5 technologies, cutting active working time from 1.5 hours to 30 minutes per session.',
-        'Architecting a 4-agent hierarchical AI system (Atlassian Rovo) for cross-PMO intelligence across 12+ semiconductor programs — PDT Summarizer, Cross-Program Synthesizer, adversarial QA Checker, and dual-mode chatbot.',
+        'Architecting a 4-agent hierarchical AI system (Atlassian Rovo) for cross-PMO intelligence across 12+ semiconductor programs: PDT Summarizer, Cross-Program Synthesizer, adversarial QA Checker, and dual-mode chatbot.',
         'Drove adoption through 10 stakeholder interviews, workflow presentations to PMO leadership, and playbooks capturing what works vs. what doesn\'t; secured buy-in and shaped governance across 5 technologies.',
       ],
       lesson: 'Adoption is the real deliverable. If no one uses it, it doesn\'t exist.',
@@ -514,7 +504,6 @@ const Portfolio = () => {
     },
   ];
 
-  // ── NAV LINK STYLE ───────────────────────────────────────────────
   const navLink = (key) => ({
     fontSize:12, letterSpacing:1.5, textTransform:'uppercase',
     fontFamily:'serif',
@@ -526,7 +515,6 @@ const Portfolio = () => {
     cursor:'none',
   });
 
-  // ── SECTION HEADING STYLE ────────────────────────────────────────
   const SH = ({ children }) => (
     <h2 style={{
       fontFamily:'Georgia, serif', fontSize:'clamp(2rem,5vw,3.2rem)',
@@ -544,7 +532,6 @@ const Portfolio = () => {
       color:C.ink, cursor:'none', overflowX:'hidden',
       fontFamily:'"DM Sans", system-ui, sans-serif',
     }}>
-      {/* Google Fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
         * { cursor:none !important; box-sizing:border-box; }
@@ -580,7 +567,6 @@ const Portfolio = () => {
         }
       `}</style>
 
-      {/* Global UI */}
       <CustomCursor />
       <ConstellationCanvas />
       <ScrollProgress />
@@ -628,7 +614,7 @@ const Portfolio = () => {
       </nav>
 
       {/* ════════════════════════════════════════════════════════════
-          HERO — scene-setter removed per edit guide
+          HERO
       ════════════════════════════════════════════════════════════ */}
       <section id="home" style={{
         minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center',
@@ -647,7 +633,6 @@ const Portfolio = () => {
           transform:`translateY(${heroParallax * -0.4}px)`,
           transition:'transform 0.1s linear',
         }}>
-          {/* Profile photo */}
           <div style={{
             marginBottom:40, display:'inline-block', position:'relative',
             animation:'fadeUp 1s ease 0.3s both',
@@ -688,7 +673,6 @@ const Portfolio = () => {
             }}/>
           </div>
 
-          {/* Name */}
           <h1 style={{
             fontFamily:'Cormorant Garamond, Georgia, serif',
             fontSize:'clamp(3.2rem,9vw,7rem)',
@@ -699,7 +683,6 @@ const Portfolio = () => {
             Tam <em style={{ color:C.matcha, fontStyle:'italic' }}>Mai</em>
           </h1>
 
-          {/* Tag lines */}
           <p style={{
             fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(1.1rem,3vw,1.6rem)',
             color:C.inkSoft, fontWeight:300, margin:'0 0 8px',
@@ -715,15 +698,13 @@ const Portfolio = () => {
             I connect the dots in both.
           </p>
 
-          {/* Sub-caption */}
           <p style={{
             fontSize:12, color:C.dust, letterSpacing:3, textTransform:'uppercase',
             marginBottom:44, animation:'fadeUp 1s ease 0.9s both',
           }}>
-            AI &amp; Business Analytics · USF · Aspiring Data &amp; Analytics Engineer
+            AI &amp; Business Analytics · University of South Florida · Aspiring Data &amp; Analytics Engineer · Home Chef and Baker
           </p>
 
-          {/* CTA */}
           <div style={{
             display:'flex', gap:16, justifyContent:'center',
             animation:'fadeUp 1s ease 1s both',
@@ -755,7 +736,6 @@ const Portfolio = () => {
             </a>
           </div>
 
-          {/* Scroll hint */}
           <div style={{
             marginTop:64, display:'flex', flexDirection:'column',
             alignItems:'center', gap:8, opacity:0.5,
@@ -768,7 +748,7 @@ const Portfolio = () => {
       </section>
 
       {/* ════════════════════════════════════════════════════════════
-          ABOUT — rewritten paragraphs per edit guide
+          ABOUT
       ════════════════════════════════════════════════════════════ */}
       <section id="about" style={{ padding:'120px 0', position:'relative' }}>
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px' }}>
@@ -777,7 +757,6 @@ const Portfolio = () => {
           </Reveal>
 
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:48, alignItems:'start' }}>
-            {/* Left: narrative */}
             <div>
               <Reveal delay={100}>
                 <SH>About <em style={{ fontStyle:'italic', color:C.sage }}>Me</em></SH>
@@ -786,13 +765,12 @@ const Portfolio = () => {
               <Reveal delay={200}>
                 <GlassCard style={{ padding:36, marginTop:32 }}>
                   <p style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.25rem', lineHeight:1.8, color:C.inkSoft, margin:'0 0 20px', fontWeight:300 }}>
-                    I notice things. Small things — the hour I concentrate most clearly, the bus driver who smiles wider on Fridays, the student who quietly withdraws. I&apos;ve carried this instinct my whole life without having a name for it. Data didn&apos;t teach me to see patterns. It gave me a language for what I was already doing.
+                    I notice things. Small things. The hour I focus best. The bus driver who smiles wider on Fridays. My mom cooks more when I&apos;m home. I&apos;ve carried this instinct my whole life without a name for it. Data didn&apos;t teach me to see patterns. It gave me language for what I was already doing.
                   </p>
                   <p style={{ fontSize:'0.92rem', lineHeight:1.9, color:C.inkSoft, margin:'0 0 20px' }}>
-                    I&apos;m Tam Mai, a Business Analytics senior at USF. I want to build data systems that actually get used — the kind that help an advisor spot a struggling student early, or help a team stop guessing and start deciding. Technical enough to build it right. Human enough to know what it&apos;s for.
+                    I&apos;m Tam Mai, a Business Analytics senior at USF. I want to build data systems that actually get used. The kind that help an academic advisor spot a struggling student early, help a product team stop guessing and start deciding, or even help me plan my own budget better. Technical enough to build it right. Human enough to know what it&apos;s for. And lately, thinking a lot about where AI ends and where a human needs to step back in.
                   </p>
 
-                  {/* Pull-quote */}
                   <div style={{
                     borderLeft:`2px solid ${C.sage}60`,
                     paddingLeft:20, margin:'28px 0',
@@ -801,18 +779,13 @@ const Portfolio = () => {
                       fontFamily:'Cormorant Garamond, serif', fontSize:'1.1rem',
                       fontStyle:'italic', color:C.matcha, margin:0, lineHeight:1.7,
                     }}>
-                      &ldquo;Stillness is not the absence of storm — it&apos;s what you build inside it.&rdquo;
+                      &ldquo;Stillness is not the absence of storm. It&apos;s what you build inside it.&rdquo;
                     </p>
                   </div>
-
-                  <p style={{ fontSize:'0.88rem', lineHeight:1.9, color:C.inkSoft, margin:0 }}>
-                    Books are how I stay curious — about people, about systems, about how to show up better in the world.
-                  </p>
                 </GlassCard>
               </Reveal>
             </div>
 
-            {/* Right: how I got here timeline */}
             <div>
               <Reveal delay={300}>
                 <GlassCard style={{ padding:36, marginTop:80 }}>
@@ -824,17 +797,17 @@ const Portfolio = () => {
                     {
                       dot:C.matcha,
                       label:'First internship →',
-                      text:'I stopped waiting for answers and started creating the right conversations. One 30-minute meeting replaced days of back-and-forth. That\'s when I understood — being productive isn\'t about being busy. It\'s about knowing where the energy should go.'
+                      text:'I stopped waiting for answers and started creating the right conversations. One 30-minute meeting replaced days of back-and-forth. That\'s when I understood. Being productive isn\'t about being busy. It\'s about knowing where the energy should go.'
                     },
                     {
                       dot:C.sage,
                       label:'Where I learned to stay curious →',
-                      text:'Every project is a new set of dots. I build small, stay close to feedback, and let the problem teach me. Each one has shown me a different corner of the data world — and made me want to understand more of it.'
+                      text:'Every project is a new set of dots. I build small, stay close to feedback, and let the problem teach me. Each one has shown me a different corner of the data world and made me want to understand more of it.'
                     },
                     {
                       dot:C.dust,
                       label:'Where I learned to see differently →',
-                      text:'Books don\'t give me answers. They give me better questions. A different lens on systems, on people, on how the world is put together. I bring all of that to everything I build.'
+                      text:'I don\'t think good ideas only come from working harder. Mine come from books, from cooking, from being outdoors. Different angles on how people and systems actually behave. I bring all of that into everything I build.'
                     },
                   ].map((item, i) => (
                     <Reveal key={i} delay={400 + i*120}>
@@ -862,7 +835,6 @@ const Portfolio = () => {
                 </GlassCard>
               </Reveal>
 
-              {/* Skills grid */}
               <Reveal delay={500}>
                 <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:12, marginTop:20 }}>
                   {[
@@ -915,7 +887,6 @@ const Portfolio = () => {
             </GlassCard>
           </Reveal>
 
-          {/* Leadership */}
           <Reveal delay={250}>
             <h3 style={{
               fontFamily:'Cormorant Garamond, serif', fontSize:'1.4rem', color:C.ink,
@@ -935,7 +906,7 @@ const Portfolio = () => {
               bullets:[
                 'Organized DevFest 2025 for 230 participants across 4 cross-functional teams, managing project timeline via GitHub Kanban and achieving 62% attendance growth.',
                 'Directed HackUSF 2026 logistics for 350 participants across 6 workshops and 10 rooms, training 50 volunteers and improving operational efficiency by 45%.',
-                'Owned HackUSF 2026 sponsor outreach — templates, training, and meetings — securing $8,000+ in prizes and improving conversion rate 8× (0.75% → 6%).',
+                'Owned HackUSF 2026 sponsor outreach with templates, training, and meetings, securing $8,000+ in prizes and improving conversion rate 8× (0.75% → 6%).',
               ],
               links:[
                 { label:'devfesttampabay.com', href:'https://devfesttampabay.com' },
@@ -988,7 +959,7 @@ const Portfolio = () => {
       </section>
 
       {/* ════════════════════════════════════════════════════════════
-          EXPERIENCE — Micron added, all bullets rewritten
+          EXPERIENCE
       ════════════════════════════════════════════════════════════ */}
       <section id="experience" style={{ padding:'120px 0' }}>
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px' }}>
@@ -998,7 +969,6 @@ const Portfolio = () => {
           </Reveal>
 
           <div style={{ position:'relative', marginTop:52 }}>
-            {/* Vertical line */}
             <div style={{
               position:'absolute', left:19, top:0, bottom:0,
               width:1, background:`linear-gradient(to bottom, ${C.sage}50, transparent)`,
@@ -1008,7 +978,6 @@ const Portfolio = () => {
             {experiences.map((exp, i) => (
               <Reveal key={i} delay={i * 150}>
                 <div style={{ display:'flex', gap:32, marginBottom:48, position:'relative', zIndex:1 }}>
-                  {/* Timeline dot */}
                   <div style={{ flexShrink:0, paddingTop:24 }}>
                     <div style={{
                       width:40, height:40, borderRadius:'50%',
@@ -1020,7 +989,6 @@ const Portfolio = () => {
                     </div>
                   </div>
 
-                  {/* Card */}
                   <GlassCard style={{ padding:36, flex:1 }}>
                     <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:12, marginBottom:20 }}>
                       <div>
@@ -1038,7 +1006,6 @@ const Portfolio = () => {
                       ))}
                     </ul>
 
-                    {/* Lesson tag */}
                     <div style={{
                       display:'inline-flex', alignItems:'center', gap:8,
                       padding:'8px 16px', borderRadius:40,
@@ -1059,7 +1026,7 @@ const Portfolio = () => {
       </section>
 
       {/* ════════════════════════════════════════════════════════════
-          PROJECTS — only FinPulse Fraud per edit guide
+          PROJECTS — renamed to Featured project
       ════════════════════════════════════════════════════════════ */}
       <section id="projects" style={{ padding:'120px 0', position:'relative' }}>
         <div style={{
@@ -1070,11 +1037,11 @@ const Portfolio = () => {
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px', position:'relative', zIndex:1 }}>
           <Reveal>
             <ChapterMark n={4} label="Observations" />
-            <SH>Data <em style={{ fontStyle:'italic', color:C.sage }}>projects</em></SH>
+            <SH>Featured <em style={{ fontStyle:'italic', color:C.sage }}>project</em></SH>
           </Reveal>
           <Reveal delay={100}>
             <p style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.1rem', color:C.dust, marginTop:8, fontStyle:'italic' }}>
-              A quiet, detail-oriented person noticing what others miss.
+              One project, told properly. A quiet, detail-oriented person noticing what others miss.
             </p>
           </Reveal>
 
@@ -1087,12 +1054,29 @@ const Portfolio = () => {
                       <h3 style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.9rem', color:C.ink, margin:'0 0 4px' }}>{p.title}</h3>
                       <p style={{ color:C.dust, fontSize:'0.88rem', margin:0, letterSpacing:1 }}>{p.subtitle}</p>
                     </div>
-                    <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
-                      {p.tech.map((t,j) => <Tag key={j}>{t}</Tag>)}
+                    <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:10 }}>
+                      <div style={{ display:'flex', flexWrap:'wrap', gap:6, justifyContent:'flex-end' }}>
+                        {p.tech.map((t,j) => <Tag key={j}>{t}</Tag>)}
+                      </div>
+                      {p.github && (
+                        <a href={p.github} target="_blank" rel="noreferrer"
+                          style={{
+                            fontSize:11, color:C.matcha, textDecoration:'none',
+                            letterSpacing:1, display:'flex', alignItems:'center', gap:6,
+                            cursor:'none', fontFamily:'serif', textTransform:'uppercase',
+                            padding:'6px 12px', borderRadius:20,
+                            border:`1px solid ${C.matcha}40`,
+                            transition:'all 0.3s ease',
+                          }}
+                          onMouseEnter={e => { e.currentTarget.style.background = C.matcha; e.currentTarget.style.color = '#fff'; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.matcha; }}
+                        >
+                          <Github size={12}/> View on GitHub ↗
+                        </a>
+                      )}
                     </div>
                   </div>
 
-                  {/* Dots framework */}
                   <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:20 }}>
                     {[
                       { label:'Scattered Dots', text:p.scattered, color:C.dust, n:'●' },
@@ -1114,7 +1098,6 @@ const Portfolio = () => {
                     ))}
                   </div>
 
-                  {/* Detail I'm proud of */}
                   <div style={{
                     marginTop:20, padding:'12px 16px',
                     background:`${C.matcha}08`, borderRadius:8,
@@ -1137,7 +1120,7 @@ const Portfolio = () => {
       </section>
 
       {/* ════════════════════════════════════════════════════════════
-          BOOKS — added Supercommunicators + Invisible Child
+          BOOKS
       ════════════════════════════════════════════════════════════ */}
       <section id="books" style={{ padding:'120px 0' }}>
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px' }}>
@@ -1146,7 +1129,6 @@ const Portfolio = () => {
             <SH>What I&apos;m <em style={{ fontStyle:'italic', color:C.sage }}>reading</em></SH>
           </Reveal>
 
-          {/* Bookshelf visual */}
           <Reveal delay={150}>
             <div style={{
               padding:'24px 20px 8px',
@@ -1162,7 +1144,6 @@ const Portfolio = () => {
             </div>
           </Reveal>
 
-          {/* Book cards */}
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px,1fr))', gap:20 }}>
             {books.map((b,i) => (
               <Reveal key={i} delay={i*80}>
@@ -1191,7 +1172,6 @@ const Portfolio = () => {
                     </div>
                   </div>
                   <p style={{ fontSize:'0.86rem', color:C.inkSoft, lineHeight:1.7, margin:0 }}>{b.insight}</p>
-                  {/* Dot rating */}
                   {b.rating > 0 && (
                     <div style={{ display:'flex', gap:4, marginTop:14 }}>
                       {[...Array(5)].map((_,j) => (
@@ -1207,7 +1187,6 @@ const Portfolio = () => {
             ))}
           </div>
 
-          {/* Off the clock — right quote removed, left paragraph rewritten */}
           <Reveal delay={300}>
             <GlassCard style={{ padding:40, marginTop:48 }}>
               <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:20 }}>
@@ -1215,7 +1194,7 @@ const Portfolio = () => {
                 <h3 style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.4rem', color:C.ink, margin:0 }}>Off the Clock</h3>
               </div>
               <p style={{ fontSize:'0.95rem', color:C.inkSoft, lineHeight:1.9, margin:0, maxWidth:640 }}>
-                The sizzle from home. The relaxing vibe it gives. The feeling of knowing someone is waiting to try my food after being outside all day. That&apos;s what cooking is for me — Vietnamese cuisine, home cooking, discovering new flavors, and creating small moments around a shared table.
+                The sizzle from home. The relaxing vibe it gives. The feeling of knowing someone is waiting to try my food after being outside all day. That&apos;s what cooking is for me. Vietnamese cuisine, home cooking, discovering new flavors, and creating small moments around a shared table.
               </p>
             </GlassCard>
           </Reveal>
@@ -1231,7 +1210,6 @@ const Portfolio = () => {
             <ChapterMark n={6} label="Let's add a dot" />
           </Reveal>
 
-          {/* SVG connecting dots illustration */}
           <Reveal delay={100}>
             <svg width="200" height="60" style={{ margin:'0 auto 32px', display:'block' }}>
               <circle cx="30" cy="30" r="6" fill={C.sage} opacity="0.7"/>
@@ -1315,7 +1293,7 @@ const Portfolio = () => {
   );
 };
 
-/* ─── BOOK SPINE (inline component) ────────────────────────────── */
+/* ─── BOOK SPINE ───────────────────────────────────────────────── */
 const BookSpine = ({ book, i }) => {
   const [hov, setHov] = useState(false);
   const heights = [120, 140, 115, 135, 125, 130, 118];
