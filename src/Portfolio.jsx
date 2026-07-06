@@ -447,7 +447,7 @@ const Portfolio = () => {
     },
     {
       title:'Invisible Child', author:'Andrea Elliott', color:C.blush, rating:0, currentlyReading:true,
-      insight:'Currently reading. A reminder that data on poverty and homelessness is always a person, and every system I build touches lives like these.'
+      insight:'Currently reading.'
     },
   ];
 
