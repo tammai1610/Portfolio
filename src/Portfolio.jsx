@@ -396,10 +396,10 @@ const Portfolio = () => {
   ];
 
   const LINKS = {
-    email:    'mailto:your.email@usf.edu',
+    email:    'mailto:tammaingocphuong@gmail.com',
     resume:   '/resume.pdf',
-    linkedin: 'https://linkedin.com/in/yourprofile',
-    github:   'https://github.com/yourusername',
+    linkedin: 'https://www.linkedin.com/in/tammaingoc/',
+    github:   'https://github.com/tammai1610',
   };
 
   const coursework = [
