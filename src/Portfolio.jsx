@@ -7,18 +7,18 @@ import {
 
 /* ─── THEME TOKENS ─────────────────────────────────────────────── */
 const C = {
-  paper:    '#F5F0E8',
-  paperDim: '#EDE7D9',
-  ink:      '#1C1A16',
-  inkSoft:  '#3D3830',
-  sage:     '#6B8F71',
-  sageDim:  '#A8C5AD',
-  matcha:   '#4A7C59',
-  dust:     '#C4A882',
-  dustDim:  '#D9C4A3',
-  blush:    '#C9938A',
-  mist:     '#8BA5A8',
-  gold:     '#B8860B',
+  paper:    '#EEF0EE',
+  paperDim: '#DDE1DD',
+  ink:      '#0F2038',
+  inkSoft:  '#2C4463',
+  sage:     '#6FA8A0',
+  sageDim:  '#B4CFC9',
+  matcha:   '#1E5F6B',
+  dust:     '#8B9AA0',
+  dustDim:  '#B8C4C8',
+  blush:    '#A88878',
+  mist:     '#7B96A6',
+  gold:     '#9B7D4A',
 };
 
 /* ─── CURSOR ────────────────────────────────────────────────────── */
@@ -111,7 +111,7 @@ const ConstellationCanvas = () => {
             ctx.beginPath();
             ctx.moveTo(dots[i].x, dots[i].y);
             ctx.lineTo(dots[j].x, dots[j].y);
-            ctx.strokeStyle = `rgba(107,143,113,${(1 - dist/130) * 0.18})`;
+            ctx.strokeStyle = `rgba(111,168,160,${(1 - dist/130) * 0.20})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -123,14 +123,14 @@ const ConstellationCanvas = () => {
           ctx.beginPath();
           ctx.moveTo(dots[i].x, dots[i].y);
           ctx.lineTo(mouse.current.x, mouse.current.y);
-          ctx.strokeStyle = `rgba(74,124,89,${(1 - md/110) * 0.35})`;
+          ctx.strokeStyle = `rgba(30,95,107,${(1 - md/110) * 0.38})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
 
         ctx.beginPath();
         ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(107,143,113,0.45)`;
+        ctx.fillStyle = `rgba(111,168,160,0.50)`;
         ctx.fill();
       }
 
@@ -179,7 +179,7 @@ const MusicPlayer = () => {
   const [pulse,   setPulse]   = useState(false);
   const audioRef  = useRef(null);
 
-  const SRC = 'https://cdn.pixabay.com/audio/2022/01/18/audio_d0ef108ef7.mp3';
+  const SRC = '/ambient.mp3';
 
   useEffect(() => {
     const a = new Audio(SRC);
@@ -228,10 +228,10 @@ const MusicPlayer = () => {
       )}
       <button
         onClick={() => setPlaying(p => !p)}
-        title={playing ? 'Pause ambient music' : 'Play ambient music'}
+        title={playing ? 'Pause ambient sound' : 'Play ambient sound'}
         style={{
           width:50, height:50, borderRadius:'50%',
-          background: playing ? C.matcha : 'rgba(245,240,232,0.9)',
+          background: playing ? C.matcha : 'rgba(242,239,230,0.9)',
           border:`1.5px solid ${playing ? C.matcha : C.sageDim}`,
           display:'flex', alignItems:'center', justifyContent:'center',
           cursor:'none', backdropFilter:'blur(8px)',
@@ -249,7 +249,7 @@ const MusicPlayer = () => {
           onClick={() => setMuted(m => !m)}
           style={{
             width:30, height:30, borderRadius:'50%',
-            background:'rgba(245,240,232,0.85)',
+            background:'rgba(242,239,230,0.85)',
             border:`1px solid ${C.sageDim}`,
             display:'flex', alignItems:'center', justifyContent:'center',
             cursor:'none', backdropFilter:'blur(8px)',
@@ -259,13 +259,6 @@ const MusicPlayer = () => {
           {muted ? <VolumeX size={12} color={C.inkSoft}/> : <Volume2 size={12} color={C.matcha}/>}
         </button>
       )}
-      <span style={{
-        fontSize:9, color: playing ? C.matcha : C.dust, letterSpacing:1,
-        fontFamily:'serif', transition:'color 0.4s',
-        textAlign:'center', lineHeight:1.4,
-      }}>
-        {playing ? '♪ ambient' : 'sound'}
-      </span>
     </div>
   );
 };
@@ -307,13 +300,13 @@ const GlassCard = ({ children, style = {}, hover = true }) => {
       onMouseEnter={() => hover && setHov(true)}
       onMouseLeave={() => hover && setHov(false)}
       style={{
-        background:'rgba(245,240,232,0.65)',
+        background:'rgba(242,239,230,0.65)',
         backdropFilter:'blur(16px)',
         WebkitBackdropFilter:'blur(16px)',
-        border:`1px solid rgba(184,134,11,0.12)`,
+        border:`1px solid rgba(30,95,107,0.12)`,
         borderRadius:20,
         boxShadow: hov
-          ? `0 20px 60px rgba(107,143,113,0.15), 0 2px 8px rgba(0,0,0,0.04)`
+          ? `0 20px 60px rgba(30,95,107,0.15), 0 2px 8px rgba(0,0,0,0.04)`
           : `0 4px 24px rgba(0,0,0,0.05)`,
         transform: hov ? 'translateY(-3px)' : 'translateY(0)',
         transition:'all 0.4s ease',
@@ -350,6 +343,43 @@ const ScrollProgress = () => {
   );
 };
 
+/* ─── MOMENTS STRIP ────────────────────────────────────────────── */
+const MomentsStrip = ({ photos, color }) => {
+  if (!photos || photos.length === 0) return null;
+  return (
+    <div style={{
+      display:'flex', gap:12, marginTop:20, flexWrap:'wrap',
+    }}>
+      {photos.map((p, i) => (
+        <div key={i} style={{ display:'flex', flexDirection:'column', gap:6 }}>
+          <div style={{
+            width:120, height:120, overflow:'hidden',
+            borderRadius:4,
+            border:`1px solid ${color}30`,
+            boxShadow:`0 2px 12px rgba(15,32,56,0.08)`,
+            transition:'all 0.3s ease',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.boxShadow=`0 8px 20px ${color}30`; }}
+            onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow=`0 2px 12px rgba(15,32,56,0.08)`; }}
+          >
+            <img src={p.src} alt={p.caption}
+              style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
+              onError={e => { e.target.parentElement.style.display='none'; }}
+            />
+          </div>
+          <p style={{
+            fontSize:9, color:C.inkSoft, margin:0, letterSpacing:0.5,
+            fontFamily:'serif', fontStyle:'italic', maxWidth:120,
+            lineHeight:1.4,
+          }}>
+            {p.caption}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 /* ═══════════════════════════════════════════════════════════════════
    MAIN PORTFOLIO
 ═══════════════════════════════════════════════════════════════════ */
@@ -361,7 +391,7 @@ const Portfolio = () => {
   const [heroParallax, setHeroParallax] = useState(0);
 
   useEffect(() => {
-    const ids = ['home','about','education','experience','projects','books','contact'];
+    const ids = ['home','about','education','experience','recommendations','projects','books','contact'];
     const h = () => {
       const y = window.scrollY + 140;
       for (let i = ids.length - 1; i >= 0; i--) {
@@ -392,7 +422,8 @@ const Portfolio = () => {
 
   const navItems = [
     ['home','Home'],['about','About'],['education','Education'],
-    ['experience','Experience'],['projects','Projects'],['books','Books'],['contact','Contact'],
+    ['experience','Experience'],['recommendations','Voices'],
+    ['projects','Projects'],['books','Books'],['contact','Contact'],
   ];
 
   const LINKS = {
@@ -457,6 +488,11 @@ const Portfolio = () => {
       org: 'Micron Technology · Boise, ID',
       period: 'May 2026 – Present',
       color: C.gold,
+      photos: [
+        { src: '/photos/micron-1.jpg'},
+        { src: '/photos/micron-2.jpg'},
+        { src: '/photos/micron-3.jpg'},
+      ],
       bullets: [
         'Owned end-to-end delivery of a centralized AI agent (Microsoft Copilot Studio), standardizing product development meeting minutes for 20–30 PMOs across all 5 technologies, cutting active working time from 1.5 hours to 30 minutes per session.',
         'Architecting a 4-agent hierarchical AI system (Atlassian Rovo) for cross-PMO intelligence across 12+ semiconductor programs: PDT Summarizer, Cross-Program Synthesizer, adversarial QA Checker, and dual-mode chatbot.',
@@ -469,6 +505,9 @@ const Portfolio = () => {
       org: 'Judy Genshaft Honors College, USF',
       period: 'June 2024 – Present',
       color: C.matcha,
+      photos: [
+        { src: '/photos/honors-1.jpg'},
+      ],
       bullets: [
         'Engineered a multi-layer ETL pipeline in Python (Polars) integrating 5 data sources across 100K+ students spanning 10 cohort years, implementing FTIC classification logic and data quality validation to generate longitudinal datasets.',
         'Automated cohort generation pipeline calculating 15 institutional metrics across student segments from ETL outputs, enabling on-demand 10-year trend analysis for accreditation reporting and strategy.',
@@ -528,7 +567,7 @@ const Portfolio = () => {
   return (
     <div style={{
       minHeight:'100vh',
-      background:`linear-gradient(135deg, ${C.paper} 0%, #EDE7D9 50%, #E8E0D0 100%)`,
+      background:`linear-gradient(135deg, ${C.paper} 0%, #DDE1DD 50%, #CFD4D0 100%)`,
       color:C.ink, cursor:'none', overflowX:'hidden',
       fontFamily:'"DM Sans", system-ui, sans-serif',
     }}>
@@ -575,10 +614,10 @@ const Portfolio = () => {
       {/* ── NAV ───────────────────────────────────────────────────── */}
       <nav style={{
         position:'fixed', top:0, width:'100%', zIndex:500,
-        background:'rgba(245,240,232,0.82)',
+        background:'rgba(242,239,230,0.82)',
         backdropFilter:'blur(18px)',
         WebkitBackdropFilter:'blur(18px)',
-        borderBottom:`1px solid rgba(107,143,113,0.12)`,
+        borderBottom:`1px solid rgba(111,168,160,0.15)`,
       }}>
         <div style={{
           maxWidth:1100, margin:'0 auto', padding:'0 32px',
@@ -647,7 +686,7 @@ const Portfolio = () => {
 
             <div style={{
               width:160, height:160, borderRadius:'50%', overflow:'hidden',
-              border:`3px solid rgba(107,143,113,0.4)`,
+              border:`3px solid rgba(111,168,160,0.4)`,
               boxShadow:`0 0 40px ${C.sage}30, 0 8px 32px rgba(0,0,0,0.1)`,
               position:'relative', zIndex:2,
             }}>
@@ -702,7 +741,7 @@ const Portfolio = () => {
             fontSize:12, color:C.dust, letterSpacing:3, textTransform:'uppercase',
             marginBottom:44, animation:'fadeUp 1s ease 0.9s both',
           }}>
-            AI &amp; Business Analytics · University of South Florida · Aspiring Data &amp; Analytics Engineer · Home Chef and Baker
+            AI &amp; Business Analytics · University of South Florida · Aspiring Product &amp; Data Analytics · Home Chef and Baker
           </p>
 
           <div style={{
@@ -768,7 +807,7 @@ const Portfolio = () => {
                     I notice things. Small things. The hour I focus best. The bus driver who smiles wider on Fridays. My mom cooks more when I&apos;m home. I&apos;ve carried this instinct my whole life without a name for it. Data didn&apos;t teach me to see patterns. It gave me language for what I was already doing.
                   </p>
                   <p style={{ fontSize:'0.92rem', lineHeight:1.9, color:C.inkSoft, margin:'0 0 20px' }}>
-                    I&apos;m Tam Mai, a Business Analytics senior at USF. I want to build data systems that actually get used. The kind that help an academic advisor spot a struggling student early, help a product team stop guessing and start deciding, or even help me plan my own budget better. Technical enough to build it right. Human enough to know what it&apos;s for. And lately, thinking a lot about where AI ends and where a human needs to step back in.
+                    I&apos;m Tam Mai, a Business Analytics senior at USF. I want to build data systems that actually get used. The kind that help an advisor spot a struggling student, or a product team stop guessing and start deciding. Technical enough to build it right. Human enough to know what it&apos;s for.
                   </p>
 
                   <div style={{
@@ -1017,6 +1056,7 @@ const Portfolio = () => {
                         {exp.lesson}
                       </span>
                     </div>
+                    <MomentsStrip photos={exp.photos} color={exp.color} />
                   </GlassCard>
                 </div>
               </Reveal>
@@ -1026,7 +1066,171 @@ const Portfolio = () => {
       </section>
 
       {/* ════════════════════════════════════════════════════════════
-          PROJECTS — renamed to Featured project
+          RECOMMENDATIONS — voices in the room
+      ════════════════════════════════════════════════════════════ */}
+      <section id="recommendations" style={{ padding:'120px 0', position:'relative' }}>
+        <div style={{
+          position:'absolute', inset:0,
+          background:`linear-gradient(135deg, ${C.sage}05 0%, transparent 60%)`,
+          pointerEvents:'none',
+        }}/>
+        <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px', position:'relative', zIndex:1 }}>
+          <Reveal>
+            <ChapterMark n={4} label="Voices in the room" />
+            <SH>What they&apos;ve <em style={{ fontStyle:'italic', color:C.sage }}>said</em></SH>
+          </Reveal>
+          <Reveal delay={100}>
+            <p style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.1rem', color:C.dust, marginTop:8, fontStyle:'italic' }}>
+              The people I&apos;ve worked with, in their own words.
+            </p>
+          </Reveal>
+
+          {/* Letters */}
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:24, marginTop:52 }}>
+            {/* Micron */}
+            <Reveal delay={200}>
+              <GlassCard style={{ padding:32, height:'100%', display:'flex', flexDirection:'column' }}>
+                <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:20, flexWrap:'wrap', gap:8 }}>
+                  <span style={{ fontSize:10, color:C.dust, letterSpacing:2, textTransform:'uppercase', fontFamily:'serif' }}>
+                    Micron Technology
+                  </span>
+                  <span style={{
+                    fontSize:9, color:C.matcha, letterSpacing:1.5, textTransform:'uppercase',
+                    padding:'3px 10px', borderRadius:20,
+                    background:`${C.matcha}12`, border:`1px solid ${C.matcha}30`,
+                    fontFamily:'serif',
+                  }}>
+                    ✦ Exceeds Expectations
+                  </span>
+                </div>
+                <p style={{
+                  fontFamily:'Cormorant Garamond, serif', fontSize:'1.15rem',
+                  fontStyle:'italic', color:C.inkSoft, lineHeight:1.7,
+                  margin:'0 0 24px', flex:1,
+                }}>
+                  &ldquo;She did a great job of balancing the technical details while keeping the broader objectives and priorities in mind. Her resourcefulness, tenacity and dedication are commendable.&rdquo;
+                </p>
+                <div style={{ borderTop:`1px solid ${C.sage}25`, paddingTop:16, display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:12 }}>
+                  <div>
+                    <p style={{ fontSize:'0.9rem', color:C.ink, margin:'0 0 2px', fontFamily:'Cormorant Garamond, serif' }}>Jyotika Roychowdhury</p>
+                    <p style={{ fontSize:11, color:C.dust, margin:0 }}>Staff Program Manager, PMO</p>
+                  </div>
+                  <a href="/micron-letter.pdf" target="_blank" rel="noreferrer" style={{
+                    fontSize:10, color:C.matcha, textDecoration:'none', letterSpacing:1.5,
+                    textTransform:'uppercase', fontFamily:'serif',
+                    display:'flex', alignItems:'center', gap:6,
+                    padding:'6px 12px', borderRadius:20,
+                    border:`1px solid ${C.matcha}40`,
+                    transition:'all 0.3s ease', cursor:'none',
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.background=C.matcha; e.currentTarget.style.color='#fff'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=C.matcha; }}
+                  >
+                    <FileText size={11}/> Read letter ↗
+                  </a>
+                </div>
+              </GlassCard>
+            </Reveal>
+
+            {/* VSP */}
+            <Reveal delay={300}>
+              <GlassCard style={{ padding:32, height:'100%', display:'flex', flexDirection:'column' }}>
+                <div style={{ marginBottom:20 }}>
+                  <span style={{ fontSize:10, color:C.dust, letterSpacing:2, textTransform:'uppercase', fontFamily:'serif' }}>
+                    VSP Vision
+                  </span>
+                </div>
+                <p style={{
+                  fontFamily:'Cormorant Garamond, serif', fontSize:'1.15rem',
+                  fontStyle:'italic', color:C.inkSoft, lineHeight:1.7,
+                  margin:'0 0 24px', flex:1,
+                }}>
+                  &ldquo;Tam presented her updates with clarity and confidence, earning praise for both her technical execution and her strategic thinking. She has my highest recommendation.&rdquo;
+                </p>
+                <div style={{ borderTop:`1px solid ${C.sage}25`, paddingTop:16, display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:12 }}>
+                  <div>
+                    <p style={{ fontSize:'0.9rem', color:C.ink, margin:'0 0 2px', fontFamily:'Cormorant Garamond, serif' }}>Brianne Melrose</p>
+                    <p style={{ fontSize:11, color:C.dust, margin:0 }}>GTS Business Management</p>
+                  </div>
+                  <a href="/vsp-letter.pdf" target="_blank" rel="noreferrer" style={{
+                    fontSize:10, color:C.matcha, textDecoration:'none', letterSpacing:1.5,
+                    textTransform:'uppercase', fontFamily:'serif',
+                    display:'flex', alignItems:'center', gap:6,
+                    padding:'6px 12px', borderRadius:20,
+                    border:`1px solid ${C.matcha}40`,
+                    transition:'all 0.3s ease', cursor:'none',
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.background=C.matcha; e.currentTarget.style.color='#fff'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=C.matcha; }}
+                  >
+                    <FileText size={11}/> Read letter ↗
+                  </a>
+                </div>
+              </GlassCard>
+            </Reveal>
+          </div>
+
+          {/* Divider */}
+          <Reveal delay={400}>
+            <div style={{ display:'flex', alignItems:'center', gap:16, margin:'56px 0 28px' }}>
+              <div style={{ flex:1, height:1, background:`linear-gradient(to right, transparent, ${C.sage}40)` }}/>
+              <span style={{ fontSize:11, color:C.dust, letterSpacing:2.5, textTransform:'uppercase', fontFamily:'serif' }}>
+                from the team
+              </span>
+              <div style={{ flex:1, height:1, background:`linear-gradient(to left, transparent, ${C.sage}40)` }}/>
+            </div>
+          </Reveal>
+
+          {/* Short quotes */}
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20 }}>
+            {[
+              {
+                quote: 'Precise, thoughtful questioning reflects someone who is actually digesting the information and thinking a step ahead.',
+                name: 'Bruce',
+                role: 'Solutions Architect',
+                color: C.matcha,
+              },
+              {
+                quote: 'She asks great and valuable questions, really wants to get to know a full process, and comes up with creative and valuable solutions.',
+                name: 'AJ',
+                role: 'Staff Program Manager',
+                color: C.sage,
+              },
+              {
+                quote: 'Rather than simply executing assigned tasks, she demonstrated initiative by proposing new ideas that increased the value of the solution.',
+                name: 'Brian',
+                role: 'Staff Program Manager',
+                color: C.dust,
+              },
+            ].map((q, i) => (
+              <Reveal key={i} delay={500 + i*100}>
+                <GlassCard style={{ padding:24, height:'100%', display:'flex', flexDirection:'column' }}>
+                  <span style={{
+                    fontFamily:'Cormorant Garamond, serif', fontSize:32,
+                    color:q.color, lineHeight:0.8, marginBottom:4,
+                  }}>&ldquo;</span>
+                  <p style={{
+                    fontFamily:'Cormorant Garamond, serif', fontSize:'0.98rem',
+                    fontStyle:'italic', color:C.inkSoft, lineHeight:1.65,
+                    margin:'0 0 16px', flex:1,
+                  }}>
+                    {q.quote}
+                  </p>
+                  <div style={{ display:'flex', alignItems:'center', gap:8, paddingTop:12, borderTop:`1px solid ${C.sage}20` }}>
+                    <div style={{ width:6, height:6, borderRadius:'50%', background:q.color }}/>
+                    <p style={{ fontSize:11, color:C.dust, margin:0, letterSpacing:0.5 }}>
+                      {q.name} · {q.role} · Micron
+                    </p>
+                  </div>
+                </GlassCard>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════
+          PROJECTS
       ════════════════════════════════════════════════════════════ */}
       <section id="projects" style={{ padding:'120px 0', position:'relative' }}>
         <div style={{
@@ -1036,7 +1240,7 @@ const Portfolio = () => {
         }}/>
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px', position:'relative', zIndex:1 }}>
           <Reveal>
-            <ChapterMark n={4} label="Observations" />
+            <ChapterMark n={5} label="Observations" />
             <SH>Featured <em style={{ fontStyle:'italic', color:C.sage }}>project</em></SH>
           </Reveal>
           <Reveal delay={100}>
@@ -1125,7 +1329,7 @@ const Portfolio = () => {
       <section id="books" style={{ padding:'120px 0' }}>
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px' }}>
           <Reveal>
-            <ChapterMark n={5} label="The reading corner" />
+            <ChapterMark n={6} label="The reading corner" />
             <SH>What I&apos;m <em style={{ fontStyle:'italic', color:C.sage }}>reading</em></SH>
           </Reveal>
 
@@ -1207,7 +1411,7 @@ const Portfolio = () => {
       <section id="contact" style={{ padding:'120px 0 80px' }}>
         <div style={{ maxWidth:700, margin:'0 auto', padding:'0 32px', textAlign:'center' }}>
           <Reveal>
-            <ChapterMark n={6} label="Let's add a dot" />
+            <ChapterMark n={7} label="Let's add a dot" />
           </Reveal>
 
           <Reveal delay={100}>
@@ -1329,7 +1533,7 @@ const BookSpine = ({ book, i }) => {
         <div style={{
           position:'absolute', bottom:'calc(100% + 8px)', left:'50%',
           transform:'translateX(-50%)',
-          background:'rgba(28,26,22,0.88)',
+          background:'rgba(15,32,56,0.88)',
           backdropFilter:'blur(8px)',
           borderRadius:8, padding:'8px 12px',
           whiteSpace:'nowrap', zIndex:10,
