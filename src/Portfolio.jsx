@@ -440,14 +440,42 @@ const Portfolio = () => {
 
   const projects = [
     {
+      featured: true,
+      title: 'Readify — a reading companion for people who actually finish books (Discovery Phrase)',
+      subtitle: 'Technical Product Manager',
+      period: 'Sept 2026 – Present · Team of 5',
+      tech: ['User Research','Competitive Analysis','LLM Integration','Product Discovery'],
+      deck: '/readify-deck.pdf',
+      scattered: 'Team had 10+ feature ideas and a habit-tracking hypothesis borrowed from Duolingo/GitHub. Nobody had asked readers what actually helps them retain what they read.',
+      connecting: 'Ran 6 user interviews. 4 of 6 readers showed "fake streak" behavior, clicking without real learning. Challenged habit-tracking direction, mapped 5 competitors\' retention mechanics, and framed 3 LLM integration patterns for team decision.',
+      clear: 'Clarified persona direction with senior advisor (30/70 A/B split), anchoring research plan around primary persona. Team aligned on reflection-based direction; MVP targeted for November pending discovery gate.',
+    },
+    {
+      featured: false,
+      title: 'AI Displacement Observatory',
+      subtitle: 'Python · DuckDB · dbt',
+      period: 'Aug 2026 – Present · Team of 2',
+      tech: ['Python','DuckDB','dbt','async I/O'],
+      github: 'https://github.com/tammai1610/ai-displacement-observatory',
+      bullets: [
+        'Built the extract/load layer of an ELT pipeline pulling from 3 labor data sources (BLS, O*NET, IPUMS CPS).',
+        'Cut extract runtime 6x using async I/O across O*NET API calls.',
+        'Diagnosed an undocumented O*NET v2 API migration that broke authentication mid-project, and rewrote the client to restore the pipeline.',
+        'Traced a silent 100% data-loss bug in dbt marts to a Jinja regex escape issue, and fixed it with split_part.',
+      ],
+    },
+    {
+      featured: false,
       title: 'FinPulse Fraud Detection Pipeline',
       subtitle: 'Python · Apache Spark · HDFS · Docker',
-      tech:['Python','Apache Spark','HDFS','Docker'],
+      period: 'April 2026 · Team of 4',
+      tech: ['Python','Apache Spark','HDFS','Docker'],
       github: 'https://github.com/alazzawiusf/Data-Wranglers-Final-Project',
-      scattered: '5 fraud datasets lived in silos, and the existing rule engine flagged 98.5% false positives. Analysts drowned in noise instead of catching real fraud.',
-      connecting: 'Built a 4-job Spark batch transformation pipeline joining all 5 datasets into a 1.15M-row enriched fact table with 26 engineered features and 99,997 customer behavioral profiles.',
-      clear: 'Surfaced fraud patterns across merchants, channels, and geography, and quantified $9.4M/year in recoverable analyst costs through z-score behavioral modeling.',
-      proudDetail: 'Designed the pipeline as 4 independent Spark jobs. Each testable, each replayable. When something breaks, you know exactly which job to rerun.',
+      bullets: [
+        'Built a 4-job Spark ELT pipeline joining 5 fraud datasets into a 1.15M-row fact table with 26 engineered features.',
+        'Surfaced fraud patterns across merchants, channels, and geography using z-score behavioral modeling.',
+        'Designed each Spark job as independent and replayable, so a failure only reruns one job, not the whole pipeline.',
+      ],
     },
   ];
 
@@ -1241,87 +1269,131 @@ const Portfolio = () => {
         <div style={{ maxWidth:980, margin:'0 auto', padding:'0 32px', position:'relative', zIndex:1 }}>
           <Reveal>
             <ChapterMark n={5} label="Observations" />
-            <SH>Featured <em style={{ fontStyle:'italic', color:C.sage }}>project</em></SH>
+            <SH>Featured <em style={{ fontStyle:'italic', color:C.sage }}>projects</em></SH>
           </Reveal>
           <Reveal delay={100}>
             <p style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.1rem', color:C.dust, marginTop:8, fontStyle:'italic' }}>
-              One project, told properly. A quiet, detail-oriented person noticing what others miss.
+            What I&apos;ve been building.
             </p>
           </Reveal>
 
           <div style={{ marginTop:52, display:'grid', gap:28 }}>
-            {projects.map((p, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <GlassCard style={{ padding:40 }}>
-                  <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:12, marginBottom:28 }}>
-                    <div>
-                      <h3 style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.9rem', color:C.ink, margin:'0 0 4px' }}>{p.title}</h3>
-                      <p style={{ color:C.dust, fontSize:'0.88rem', margin:0, letterSpacing:1 }}>{p.subtitle}</p>
+            {projects.map((p, i) => {
+              if (p.featured) {
+                // ── FEATURED CARD (Readify with dot narrative) ──
+                return (
+                  <Reveal key={i} delay={i * 100}>
+                    <GlassCard style={{ padding:40 }}>
+                      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:12, marginBottom:8 }}>
+                        <div style={{ flex:1, minWidth:280 }}>
+                          <span style={{ fontSize:9, color:C.matcha, letterSpacing:2.5, textTransform:'uppercase', fontFamily:'serif' }}>
+                            ✦ Featured
+                          </span>
+                          <h3 style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.9rem', color:C.ink, margin:'6px 0 4px', lineHeight:1.2 }}>{p.title}</h3>
+                          <p style={{ color:C.dust, fontSize:'0.88rem', margin:'0 0 4px', letterSpacing:1 }}>{p.subtitle}</p>
+                          <p style={{ color:C.inkSoft, fontSize:11, margin:0, fontStyle:'italic' }}>{p.period}</p>
+                        </div>
+                        <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:10 }}>
+                          <div style={{ display:'flex', flexWrap:'wrap', gap:6, justifyContent:'flex-end' }}>
+                            {p.tech.map((t,j) => <Tag key={j}>{t}</Tag>)}
+                          </div>
+                          {p.deck && (
+                            <a href={p.deck} target="_blank" rel="noreferrer"
+                              style={{
+                                fontSize:11, color:C.matcha, textDecoration:'none',
+                                letterSpacing:1, display:'flex', alignItems:'center', gap:6,
+                                cursor:'none', fontFamily:'serif', textTransform:'uppercase',
+                                padding:'6px 12px', borderRadius:20,
+                                border:`1px solid ${C.matcha}40`,
+                                transition:'all 0.3s ease',
+                              }}
+                              onMouseEnter={e => { e.currentTarget.style.background = C.matcha; e.currentTarget.style.color = '#fff'; }}
+                              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.matcha; }}
+                            >
+                              <FileText size={12}/> View deck ↗
+                            </a>
+                          )}
+                        </div>
+                      </div>
+
+                      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:20, marginTop:24 }}>
+                        {[
+                          { label:'Scattered Dots', text:p.scattered, color:C.dust, n:'●' },
+                          { label:'Connecting Dots', text:p.connecting, color:C.sage, n:'●—●' },
+                          { label:'Clear Picture', text:p.clear, color:C.matcha, n:'●●●' },
+                        ].map((d,j) => (
+                          <div key={j} style={{
+                            padding:20,
+                            background:`${d.color}0A`,
+                            borderRadius:12,
+                            borderTop:`2px solid ${d.color}40`,
+                          }}>
+                            <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:10 }}>
+                              <span style={{ fontSize:9, color:d.color, letterSpacing:2 }}>{d.n}</span>
+                              <span style={{ fontSize:9, color:d.color, letterSpacing:2, textTransform:'uppercase', fontFamily:'serif' }}>{d.label}</span>
+                            </div>
+                            <p style={{ fontSize:'0.84rem', color:C.inkSoft, lineHeight:1.7, margin:0 }}>{d.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </GlassCard>
+                  </Reveal>
+                );
+              }
+              // ── TIER 2 CARDS handled below in a grid ──
+              return null;
+            })}
+
+            {/* ── TIER 2 · compact grid ── */}
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:20, marginTop:12 }}>
+              {projects.filter(p => !p.featured).map((p, i) => (
+                <Reveal key={`t2-${i}`} delay={i * 100}>
+                  <GlassCard style={{ padding:32, height:'100%', display:'flex', flexDirection:'column' }}>
+                    <div style={{ marginBottom:16 }}>
+                      <h3 style={{ fontFamily:'Cormorant Garamond, serif', fontSize:'1.35rem', color:C.ink, margin:'0 0 4px', lineHeight:1.3 }}>{p.title}</h3>
+                      <p style={{ color:C.dust, fontSize:'0.82rem', margin:'0 0 4px', letterSpacing:0.5 }}>{p.subtitle}</p>
+                      <p style={{ color:C.inkSoft, fontSize:10, margin:0, fontStyle:'italic' }}>{p.period}</p>
                     </div>
-                    <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:10 }}>
-                      <div style={{ display:'flex', flexWrap:'wrap', gap:6, justifyContent:'flex-end' }}>
+
+                    <ul style={{ paddingLeft:16, margin:'0 0 20px', flex:1 }}>
+                      {p.bullets.map((b, j) => (
+                        <li key={j} style={{
+                          fontSize:'0.83rem', color:C.inkSoft, lineHeight:1.7,
+                          marginBottom:8,
+                        }}>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:12, flexWrap:'wrap' }}>
+                      <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
                         {p.tech.map((t,j) => <Tag key={j}>{t}</Tag>)}
                       </div>
                       {p.github && (
                         <a href={p.github} target="_blank" rel="noreferrer"
                           style={{
-                            fontSize:11, color:C.matcha, textDecoration:'none',
+                            fontSize:10, color:C.matcha, textDecoration:'none',
                             letterSpacing:1, display:'flex', alignItems:'center', gap:6,
                             cursor:'none', fontFamily:'serif', textTransform:'uppercase',
-                            padding:'6px 12px', borderRadius:20,
+                            padding:'5px 10px', borderRadius:20,
                             border:`1px solid ${C.matcha}40`,
                             transition:'all 0.3s ease',
                           }}
                           onMouseEnter={e => { e.currentTarget.style.background = C.matcha; e.currentTarget.style.color = '#fff'; }}
                           onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.matcha; }}
                         >
-                          <Github size={12}/> View on GitHub ↗
+                          <Github size={10}/> GitHub ↗
                         </a>
                       )}
                     </div>
-                  </div>
-
-                  <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:20 }}>
-                    {[
-                      { label:'Scattered Dots', text:p.scattered, color:C.dust, n:'●' },
-                      { label:'Connecting Dots', text:p.connecting, color:C.sage, n:'●—●' },
-                      { label:'Clear Picture', text:p.clear, color:C.matcha, n:'●●●' },
-                    ].map((d,j) => (
-                      <div key={j} style={{
-                        padding:20,
-                        background:`${d.color}0A`,
-                        borderRadius:12,
-                        borderTop:`2px solid ${d.color}40`,
-                      }}>
-                        <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:10 }}>
-                          <span style={{ fontSize:9, color:d.color, letterSpacing:2 }}>{d.n}</span>
-                          <span style={{ fontSize:9, color:d.color, letterSpacing:2, textTransform:'uppercase', fontFamily:'serif' }}>{d.label}</span>
-                        </div>
-                        <p style={{ fontSize:'0.84rem', color:C.inkSoft, lineHeight:1.7, margin:0 }}>{d.text}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div style={{
-                    marginTop:20, padding:'12px 16px',
-                    background:`${C.matcha}08`, borderRadius:8,
-                    border:`1px solid ${C.matcha}20`,
-                    display:'flex', alignItems:'flex-start', gap:10,
-                  }}>
-                    <span style={{ fontSize:10, color:C.matcha, marginTop:1 }}>✦</span>
-                    <div>
-                      <span style={{ fontSize:9, color:C.matcha, letterSpacing:2, textTransform:'uppercase', fontFamily:'serif' }}>Detail I&apos;m proud of · </span>
-                      <span style={{ fontSize:'0.82rem', color:C.inkSoft, fontStyle:'italic' }}>
-                        {p.proudDetail}
-                      </span>
-                    </div>
-                  </div>
-                </GlassCard>
-              </Reveal>
-            ))}
+                  </GlassCard>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+        </section>
 
       {/* ════════════════════════════════════════════════════════════
           BOOKS
