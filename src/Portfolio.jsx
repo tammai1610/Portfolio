@@ -3,6 +3,8 @@ import { C, F, FONTS_URL } from './theme';
 import { GLOBAL_CSS } from './components/ui';
 import { TopBar, Shopfront } from './components/Shopfront';
 import { Keychains } from './components/Keychains';
+import { Quiescent } from './components/Quiescent';
+import { FloatingResume } from './components/FloatingResume';
 import { FilmRoll } from './components/FilmRoll';
 import { Letters } from './components/Letters';
 import { Magnets } from './components/Magnets';
@@ -19,6 +21,7 @@ const Portfolio = () => (
     <Shopfront />
     <main>
       <Keychains />
+      <Quiescent />
       <FilmRoll />
       <Letters />
       <Magnets />
@@ -26,6 +29,7 @@ const Portfolio = () => (
       <ThankYou />
     </main>
     <footer className="awning" style={{ height: 18 }} />
+    <FloatingResume />
     <MusicPlayer />
   </div>
 );

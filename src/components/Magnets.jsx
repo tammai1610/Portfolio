@@ -34,11 +34,19 @@ const FinPulsePoster = () => (
   </div>
 );
 
+const ShopPoster = () => (
+  <div style={{ height: 160, background: C.glass, color: C.ink, position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 18 }}>
+    <div className="awning" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 34, borderBottom: `2px solid ${C.ink}` }} />
+    <span style={{ fontFamily: F.label, fontSize: 10, fontWeight: 600, letterSpacing: '0.2em', color: C.matcha }}>A LITTLE SOUVENIR SHOP</span>
+    <span style={{ fontFamily: F.display, fontSize: 46, lineHeight: 1 }}>Tam's</span>
+  </div>
+);
+
 export const Magnets = () => (
   <section id="magnets" style={{ background: C.gold, padding: '96px 24px', color: C.ink }}>
     <div style={{ maxWidth: 1240, margin: '0 auto' }}>
       <Reveal>
-        <SectionLabel n="04">{M.label}</SectionLabel>
+        <SectionLabel n="05">{M.label}</SectionLabel>
         <BigTitle>{M.title}</BigTitle>
       </Reveal>
 
@@ -54,7 +62,8 @@ export const Magnets = () => (
                 background: C.card, border: `2px solid ${C.ink}`, boxShadow: `6px 6px 0 ${C.ink}`,
                 padding: '34px 20px 18px', display: 'flex', flexDirection: 'column', gap: 12, height: '100%',
               }}>
-                {p.poster === 'observatory' ? <ObservatoryPoster />
+                {p.poster === 'shop' ? <ShopPoster />
+                  : p.poster === 'observatory' ? <ObservatoryPoster />
                   : p.poster === 'finpulse' ? <FinPulsePoster />
                   : <Photo src={p.image} alt={`${p.name} screen`} tint={C.sand} style={{ height: 160 }} />}
                 {p.status && (

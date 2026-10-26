@@ -79,7 +79,9 @@ export const Shopfront = () => {
 
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '24px 24px 72px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* hanging sign */}
-        <div className="sign" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 18 }}>
+        <a className="sign" href={LINKS.resume} target="_blank" rel="noreferrer" 
+          aria-label="Open to work: open my resume"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 18, textDecoration: 'none', cursor: 'pointer' }}>
           <svg width="120" height="34" viewBox="0 0 120 34" aria-hidden="true">
             <path d="M60 2 L14 32 M60 2 L106 32" stroke={C.ink} strokeWidth="2" fill="none" />
             <circle cx="60" cy="3" r="3" fill={C.ink} />
@@ -91,7 +93,7 @@ export const Shopfront = () => {
             <span style={{ fontFamily: F.display, fontSize: 32, letterSpacing: '0.1em', lineHeight: 1 }}>{S.signTop}</span>
             <span style={{ fontFamily: F.label, fontSize: 10, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase', marginTop: 3 }}>{S.signBottom}</span>
           </div>
-        </div>
+        </a>
 
         {/* shop window */}
         <div style={{ position: 'relative', width: '100%', perspective: 1800 }}>

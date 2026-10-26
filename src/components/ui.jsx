@@ -114,10 +114,18 @@ a { color: inherit; }
 .after-doors { opacity: 0; animation: rise .9s ease-out 1.7s forwards; }
 .keychain { transform-origin: top center; background: none; border: none; padding: 0; color: inherit; font: inherit; }
 .keychain:hover { animation: swing 1.4s ease-in-out infinite; }
-.spine { transition: translate .3s; }
-.spine:hover, .spine:focus-visible { translate: 0 -10px; }
-.spine .tip { opacity: 0; pointer-events: none; transition: opacity .25s; }
-.spine:hover .tip, .spine:focus-visible .tip { opacity: 1; }
+.sign:hover > div { background: #B23730; }
+.spine { transition: translate .3s; background: none; padding: 0; font: inherit; cursor: pointer; }
+.spine:hover, .spine:focus-visible, .spine[aria-pressed="true"] { translate: 0 -12px; }
+.filmrow { scroll-behavior: smooth; }
+.film-fade { position: absolute; top: 0; right: 0; bottom: 16px; width: 90px; pointer-events: none; background: linear-gradient(to right, rgba(15,32,56,0), ${C.ink}); transition: opacity .3s; }
+.float-resume { transition: opacity .3s, translate .3s; }
+.dish { width: 180px; }
+@keyframes tlPulse { 0% { box-shadow: 0 0 0 0 rgba(111,168,160,.7) } 100% { box-shadow: 0 0 0 10px rgba(111,168,160,0) } }
+.tl-pulse { animation: tlPulse 1.8s ease-out infinite; }
+.tl-row:hover { background: rgba(238,240,238,0.06) !important; }
+@media (max-width: 560px) { .tl-grid { --tl-label: 96px; } }
+@media (max-width: 480px) { .dish { width: 146px; } }
 .arrow-link svg { transition: translate .25s; }
 .arrow-link:hover svg { translate: 4px 0; }
 .nav-links a:hover { color: ${C.matcha}; }
@@ -128,7 +136,7 @@ a { color: inherit; }
 }
 @media (prefers-reduced-motion: reduce) {
   .door-l, .door-r { display: none; }
-  .sign, .keychain:hover { animation: none; }
+  .sign, .keychain:hover, .tl-pulse { animation: none; }
   .after-doors { opacity: 1; animation: none; }
   .reveal-on-scroll { opacity: 1 !important; transform: none !important; }
 }
