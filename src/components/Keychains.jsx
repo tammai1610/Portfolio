@@ -71,6 +71,37 @@ const ART = {
       <circle cx="22" cy="62" r="3.5" fill={C.red} /><circle cx="50" cy="46" r="3.5" fill={C.red} /><circle cx="74" cy="32" r="3.5" fill={C.red} />
     </svg>
   ) },
+  meditation: { drop: 50, svg: (
+    <svg width="134" height="134" viewBox="0 0 134 134" role="img" aria-label="Meditation keychain: meditating by the mountains">
+      <defs><clipPath id="medBadge"><circle cx="67" cy="67" r="58" /></clipPath></defs>
+      <circle cx="67" cy="67" r="62" fill={C.card} stroke={C.ink} strokeWidth="3" />
+      <g clipPath="url(#medBadge)">
+        <rect width="134" height="134" fill="#FBF1DC" />
+        <ellipse cx="38" cy="22" rx="22" ry="5" fill="#E9A3B5" />
+        <ellipse cx="84" cy="30" rx="18" ry="4.5" fill="#E9A3B5" />
+        <circle cx="104" cy="44" r="10" fill={C.gold} />
+        <path d="M-4 84 L28 38 L42 56 L58 30 L86 72 L104 56 L140 84 Z" fill="#3E6A9A" stroke={C.ink} strokeWidth="2" strokeLinejoin="round" />
+        <path d="M22 47 L28 38 L34 46 L30 44 Z M52 39 L58 30 L64 40 L60 37 Z" fill={C.card} />
+        <path d="M-4 92 Q34 70 70 86 T140 82 V140 H-4 Z" fill="#6FA86A" stroke={C.ink} strokeWidth="2" />
+        <path d="M100 88 H140 V96 H100 Z" fill="#8FC1D6" />
+        <path d="M16 90 l5 -18 l5 18 z M24 92 l4 -13 l4 13 z" fill={C.matcha} />
+        {/* her */}
+        <path d="M38 118 Q67 96 96 118 Q67 128 38 118 Z" fill="#E7A0B8" stroke={C.ink} strokeWidth="2.2" strokeLinejoin="round" />
+        <path d="M54 106 Q52 86 60 80 H74 Q82 86 80 106 Z" fill={C.card} stroke={C.ink} strokeWidth="2.2" strokeLinejoin="round" />
+        <path d="M56 90 Q46 100 44 108 M78 90 Q88 100 90 108" fill="none" stroke={C.card} strokeWidth="6" strokeLinecap="round" />
+        <path d="M56 90 Q46 100 44 108 M78 90 Q88 100 90 108" fill="none" stroke={C.ink} strokeWidth="1.6" strokeLinecap="round" strokeDasharray="0" opacity="0.35" />
+        <circle cx="43" cy="109" r="3" fill="#E8B48E" stroke={C.ink} strokeWidth="1.4" />
+        <circle cx="91" cy="109" r="3" fill="#E8B48E" stroke={C.ink} strokeWidth="1.4" />
+        <path d="M64 76 h6 v6 h-6 z" fill="#E8B48E" />
+        <circle cx="67" cy="66" r="11" fill="#E8B48E" stroke={C.ink} strokeWidth="2" />
+        <path d="M56 65 Q57 53 67 53 Q77 53 78 65 Q74 59 67 59 Q60 59 56 65 Z" fill="#7A4A2E" stroke={C.ink} strokeWidth="1.6" strokeLinejoin="round" />
+        <circle cx="67" cy="49" r="5.5" fill="#7A4A2E" stroke={C.ink} strokeWidth="1.6" />
+        <path d="M61 67 q2 2 4 0 M69 67 q2 2 4 0" fill="none" stroke={C.ink} strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="60.5" cy="71" r="2" fill="#E99AA0" /><circle cx="73.5" cy="71" r="2" fill="#E99AA0" />
+      </g>
+      <circle cx="67" cy="67" r="58" fill="none" stroke={C.ink} strokeWidth="2" />
+    </svg>
+  ) },
   baking: { drop: 44, svg: (
     <svg width="124" height="118" viewBox="0 0 124 118" role="img" aria-label="Cake keychain">
       <path d="M54 14 q8 -12 16 0 q-8 6 -16 0z" fill={C.red} stroke={C.ink} strokeWidth="2" />
@@ -124,14 +155,14 @@ export const Keychains = () => (
     </div>
 
     {/* the counter: owner's note, member card, price tags */}
-    <div style={{ marginTop: 72, display: 'flex', flexWrap: 'wrap', gap: 44, alignItems: 'flex-start', justifyContent: 'center' }}>
-      <Reveal style={{ flex: '1 1 420px', maxWidth: 560 }}>
-        <div style={{ position: 'relative', transform: 'rotate(-1.2deg)' }}>
+    <div style={{ marginTop: 72, display: 'flex', flexWrap: 'wrap', gap: 44, alignItems: 'stretch' }}>
+      <Reveal style={{ flex: '1.15 1 420px', display: 'flex' }}>
+        <div style={{ position: 'relative', transform: 'rotate(-0.8deg)', flex: 1, display: 'flex' }}>
           <div style={{ position: 'absolute', top: -12, left: '50%', marginLeft: -10, width: 20, height: 20, borderRadius: '50%', background: C.red, border: `2.5px solid ${C.ink}`, zIndex: 1 }} />
           <div style={{
             background: C.card, border: `2px solid ${C.ink}`, padding: '32px 30px 28px',
             backgroundImage: `repeating-linear-gradient(0deg, transparent 0 37px, ${C.glass} 37px 38px)`,
-            display: 'flex', flexDirection: 'column', gap: 12,
+            display: 'flex', flexDirection: 'column', gap: 12, flex: 1, justifyContent: 'center',
           }}>
             <span style={{ fontFamily: F.label, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', color: C.dust, textTransform: 'uppercase' }}>{K.noteLabel}</span>
             <p style={{ margin: 0, fontFamily: F.hand, fontSize: 29, lineHeight: '38px' }}>{K.note}</p>
@@ -139,7 +170,7 @@ export const Keychains = () => (
         </div>
       </Reveal>
 
-      <Reveal delay={150} style={{ flex: '1 1 340px', maxWidth: 480, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <Reveal delay={150} style={{ flex: '1 1 380px', display: 'flex', flexDirection: 'column', gap: 28 }}>
         <div style={{ background: C.ink, color: C.paper, borderRadius: 16, padding: '24px 26px', display: 'flex', flexDirection: 'column', gap: 14, boxShadow: `6px 6px 0 ${C.sage}` }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontFamily: F.label, fontSize: 11, fontWeight: 600, letterSpacing: '0.22em', color: C.sage }}>MEMBER CARD</span>

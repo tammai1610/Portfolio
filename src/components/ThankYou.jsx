@@ -6,22 +6,21 @@ import { SectionLabel, Reveal, ArrowLink, PillButton } from './ui';
 export const ThankYou = () => (
   <section id="thanks" style={{ background: C.glass, padding: '96px 24px 104px', color: C.ink }}>
     <div style={{ maxWidth: 1240, margin: '0 auto' }}>
-      <SectionLabel n="06">{T.label}</SectionLabel>
+      <SectionLabel n="07">{T.label}</SectionLabel>
       <div style={{ marginTop: 28, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 56 }}>
         <Reveal style={{ flex: '999 1 520px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 28 }}>
-          <h2 style={{ margin: 0, fontFamily: F.display, fontWeight: 400, fontSize: 'clamp(48px, 7.5vw, 100px)', lineHeight: 0.98, letterSpacing: '-0.02em' }}>
+          <h2 style={{ margin: 0, fontFamily: F.display, fontWeight: 400, fontSize: 'clamp(48px, 6.5vw, 92px)', lineHeight: 0.98, letterSpacing: '-0.02em' }}>
             {T.title[0]}<br />{T.title[1]}
           </h2>
-          <p style={{ margin: 0, maxWidth: 560, fontFamily: F.body, fontSize: 21, lineHeight: 1.6 }}>{T.body}</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 36px', alignItems: 'center' }}>
-            <ArrowLink href={LINKS.email}>{T.cta}</ArrowLink>
+          <p style={{ margin: 0, maxWidth: 520, fontFamily: F.body, fontSize: 21, lineHeight: 1.6 }}>{T.body}</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 32px', alignItems: 'center' }}>
+            <ArrowLink href={LINKS.email} gap={24}>{T.cta}</ArrowLink>
             <ArrowLink href={LINKS.linkedin} external diagonal gap={12}>LinkedIn</ArrowLink>
             <ArrowLink href={LINKS.github} external diagonal gap={12}>GitHub</ArrowLink>
             <PillButton href={LINKS.resume}>Resume</PillButton>
           </div>
+          <span style={{ fontFamily: F.body, fontSize: 16, color: C.muted, userSelect: 'all' }}>tammaingocphuong@gmail.com</span>
         </Reveal>
-
-        {/* gift box with a tag */}
         <svg width="260" height="280" viewBox="0 0 280 300" aria-hidden="true" style={{ flex: '0 0 auto', margin: '0 auto' }}>
           <rect x="40" y="130" width="200" height="150" rx="6" fill={C.matcha} stroke={C.ink} strokeWidth="3" />
           <rect x="28" y="100" width="224" height="42" rx="6" fill={C.teal} stroke={C.ink} strokeWidth="3" />

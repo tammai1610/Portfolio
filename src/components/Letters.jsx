@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { C, F } from '../theme';
 import { LETTERS as L } from '../data';
 import { SectionLabel, BigTitle, Reveal, ArrowLink } from './ui';
 
 const TILTS = ['-1deg', '1.2deg'];
+
+/* Postage stamp with the company logo. Falls back to the company name if the logo file is missing. */
+const LogoStamp = ({ l }) => {
+  const [ok, setOk] = useState(true);
+  return (
+    <div style={{
+      width: 116, height: 78, background: C.card, border: `1.5px dashed ${C.ink}`, transform: 'rotate(3deg)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px 12px',
+      boxShadow: `0 0 0 4px ${C.card}`,
+    }}>
+      {ok && l.logo
+        ? <img src={l.logo} alt={l.company} onError={() => setOk(false)} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+        : <span style={{ fontFamily: F.display, fontSize: 15, lineHeight: 1.1, textAlign: 'center' }}>{l.company}</span>}
+    </div>
+  );
+};
 const POST = [{ c: C.matcha, t: '-1.5deg' }, { c: C.gold, t: '1deg' }, { c: C.red, t: '-0.5deg' }];
 
 export const Letters = () => (
   <section id="letters" style={{ maxWidth: 1240, margin: '0 auto', padding: '96px 24px 88px', color: C.ink }}>
     <Reveal>
-      <SectionLabel n="03">{L.label}</SectionLabel>
+      <SectionLabel n="04">{L.label}</SectionLabel>
       <BigTitle>{L.title}</BigTitle>
     </Reveal>
 
@@ -20,12 +36,16 @@ export const Letters = () => (
             <div style={{ background: C.glass, padding: '28px 30px 24px', display: 'flex', flexDirection: 'column', gap: 20, height: '100%' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
                 <span style={{ fontFamily: F.label, fontSize: 11, fontWeight: 600, letterSpacing: '0.16em' }}>LETTER NO. {l.no}</span>
-                <div style={{
-                  width: 66, height: 78, flexShrink: 0, background: C.gold, border: `1.5px dashed ${C.ink}`,
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4, transform: 'rotate(3deg)',
-                }}>
-                  <span style={{ fontFamily: F.display, fontStyle: 'italic', fontSize: 30, lineHeight: 1 }}>T</span>
-                  <span style={{ fontFamily: F.label, fontSize: 7, fontWeight: 600, letterSpacing: '0.1em' }}>{l.stamp}</span>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, flexShrink: 0 }}>
+                  {l.badge && (
+                    <span title={l.badge} style={{
+                      width: 84, height: 84, borderRadius: '50%', border: `1.5px solid ${C.red}`, color: C.red,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', transform: 'rotate(-10deg)',
+                      fontFamily: F.label, fontSize: 7.5, fontWeight: 700, letterSpacing: '0.06em', lineHeight: 1.5, textTransform: 'uppercase',
+                      boxShadow: `inset 0 0 0 4px ${C.glass}, inset 0 0 0 5px rgba(200,66,59,0.45)`,
+                    }}>★<br />Exceeds<br />Expectations</span>
+                  )}
+                  <LogoStamp l={l} />
                 </div>
               </div>
               <p style={{ margin: 0, fontFamily: F.body, fontStyle: 'italic', fontSize: 22, lineHeight: 1.55, flex: 1 }}>
