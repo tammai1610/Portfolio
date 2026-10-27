@@ -14,7 +14,7 @@ const LivePreview = () => {
           flex: 1, minWidth: 0, margin: '0 10px', height: 24, borderRadius: 12, background: C.card, border: `1px solid ${C.sageDim}`,
           display: 'flex', alignItems: 'center', padding: '0 12px', fontFamily: F.label, fontSize: 12, color: C.muted,
           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-        }}>readhub-demo.netlify.app</span>
+        }}>quiescenttest.netlify.app</span>
         <a href={Q.embed} target="_blank" rel="noreferrer" aria-label="Open the prototype in a new tab" style={{ color: C.ink, display: 'inline-flex', padding: 6 }}>
           <Arrow size={16} diagonal />
         </a>

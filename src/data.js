@@ -149,7 +149,7 @@ export const QUIESCENT = {
   meta: 'Technical Product Manager · Team of 5 · September 2026 – Present',
   image: '/photos/quiescent-1.jpeg',
   role: 'My role: Technical Product Manager, across user research, product design, and adoption metrics.',
-  embed: 'https://readhub-demo.netlify.app/library?view=folders',
+  embed: 'https://quiescenttest.netlify.app/signin',
   caseStudy: [
     { title: 'Summary', head: 'A reading app that helps you keep what you read.',
       body: 'Quiescent is a web reader and Chrome extension. You save articles and PDFs from anywhere, read them in one calm, focused space, and come back to them later, so reading turns into understanding you keep.' },
@@ -172,7 +172,7 @@ export const QUIESCENT = {
   ],
   links: [
     { label: 'GitHub', href: 'https://github.com/quiescent-app/quiescent' },
-    { label: 'Live prototype', href: 'https://readhub-demo.netlify.app/library?view=folders' },
+    { label: 'Live prototype', href: 'https://quiescenttest.netlify.app/signin' },
     { label: 'Sign-in flow prototype', href: 'https://claude.ai/artifact/HRonVqtQdXK6npNjyFdh4L' },
     { label: 'Design handoff', href: 'https://claude.ai/artifact/2y7j5FKa7k8EyKL1L5djg5' },
   ],
